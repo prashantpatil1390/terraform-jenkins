@@ -9,7 +9,7 @@ module "elb" {
   public_subnet-1b = module.vpc.public-subnet-1b-id
   vpc_id = module.vpc.vpc_id
   alb-sg = module.network.alb-sg-id
-  lb_logs_bkt = module.s3.s3-state-name
+#  lb_logs_bkt = module.s3.s3-state-name
 }
 
 module "network" {
