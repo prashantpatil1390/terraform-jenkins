@@ -44,6 +44,7 @@ resource "aws_eip" "nat-eip" {
 
   tags = {
     Name = "NAT-EIP"
+  }
 }
 
 
