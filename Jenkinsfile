@@ -5,6 +5,11 @@ pipeline {
   }
 
   stages{
+    stage('Destroy-infra'){
+      steps{
+        sh "terraform destory -auto-approve"
+      }
+    }
     stage('S3- Create Backent Bucket'){
       steps{
         script{
