@@ -10,5 +10,6 @@ variable "vpc_id" {
 variable "alb-sg"{
 
 }
-variable "lb_logs_bkt"{
-}
+
+#variable "lb_logs_bkt"{
+#}
