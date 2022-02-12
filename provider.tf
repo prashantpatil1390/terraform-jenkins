@@ -4,9 +4,9 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = var.stateBucketName
-    region = var.stateBucketRegion
-    key    = var.stateBucketKey
+    bucket = "terraform-state-prash"
+    region = "us-east-1"
+    key    = "terraform.tfstate"
     }
 }
 

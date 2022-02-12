@@ -2,6 +2,7 @@ variable "region" {
   description = "AWS region"
   default = "us-east-1"
 }
+/*
 variable "stateBucketName" {
   default = "terraform-state-prash"
 }
@@ -14,3 +15,4 @@ variable "stateBucketKey" {
 #  default = "vpc"
   default = "terraform.tfstate"
 }
+*/
