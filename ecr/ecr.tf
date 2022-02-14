@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "ecr" {
-  name                 = "Demo-ECR"
+  name                 = "demo-ecr"
   image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
