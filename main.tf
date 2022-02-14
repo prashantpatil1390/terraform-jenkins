@@ -20,3 +20,7 @@ module "network" {
 module "ecr" {
   source = "./ecr"
 }
+
+module "ecs" {
+  source = "./ecs"
+}
