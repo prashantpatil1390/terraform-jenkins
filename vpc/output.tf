@@ -7,8 +7,7 @@ output "public-subnet-1b-id" {
 }
 
 output "private_subnets" {
-  count = var.counter
-  value = element(aws_subnet.private_subnet.*.id, count.index)
+  value = [aws_subnet.private_subnet.*.id]
 }
 
 /*
