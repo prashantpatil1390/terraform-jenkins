@@ -39,7 +39,7 @@ resource "aws_ecs_service" "test-service" {
 
   load_balancer {
     target_group_arn = var.tg-arn
-    container_name   = "nginxapp"
+    container_name   = "myapp"
     container_port   = var.app_port
   }
 
