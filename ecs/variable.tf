@@ -1,11 +1,23 @@
-variable "ecs_task_execution_role" { }
+variable "ecs_task_execution_role" {
+  default     = "myECcsTaskExecutionRole"
+  description = "ECS task execution role name"
+}
 
-variable "private_subnets" { }
+variable "aws_region" {
+  default     = "us-east-1"
+  description = "aws region where our resources going to create choose"
+}
+
+variable "private_subnet-1a" { }
+
+variable "private_subnet-1b" { }
 
 variable "alb-sg" { }
 
 variable "ecs_task_execution_role_arn" { }
 
+variable "tg-arn" { }
+variable "listener" {}
 variable "app_image" {
   default     = "nginx:latest"
   description = "docker image to run in this ECS cluster"

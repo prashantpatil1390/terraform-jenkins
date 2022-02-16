@@ -24,8 +24,11 @@ module "ecr" {
 module "ecs" {
   source = "./ecs"
   alb-sg = module.network.alb-sg-id
-  private_subnets = module.vpc.private_subnet
+  private_subnet-1a = module.vpc.private-subnet-1a-id
+  private_subnet-1b = module.vpc.private-subnet-1b-id
   ecs_task_execution_role_arn = module.iam.ecs_task_execution_role_arn
+  tg-arn = module.elb.tg-arn
+  listener = module.elb.listener
 }
 
 module "iam" {
