@@ -1,3 +1,7 @@
+variable "aws_account_no"{
+  default = 053688395719
+}
+
 variable "ecs_task_execution_role" {
   default     = "myECcsTaskExecutionRole"
   description = "ECS task execution role name"

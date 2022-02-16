@@ -1,7 +1,23 @@
-resource "aws_ecs_cluster" "web-cluster" {
-  name = "MyWeb-Cluster"
+resource "aws_cloudwatch_log_group" "log_group" {
+  name = "MyWeb-Cluster-log-group"
 }
 
+resource "aws_ecs_cluster" "web-cluster" {
+  name = "MyWeb-Cluster"
+
+  configuration {
+    execute_command_configuration {
+//      kms_key_id = aws_kms_key.example.arn
+      logging    = "OVERRIDE"
+
+      log_configuration {
+        cloud_watch_encryption_enabled = true
+        cloud_watch_log_group_name     = aws_cloudwatch_log_group.log_group.name
+      }
+    }
+  }
+}
+/*
 data "template_file" "myapp" {
   template = file("./ecs/templates/image/image.json")
 
@@ -13,6 +29,7 @@ data "template_file" "myapp" {
     aws_region     = var.aws_region
   }
 }
+*/
 
 resource "aws_ecs_task_definition" "task_def" {
   family                   = "nginxapp-task"
@@ -21,7 +38,25 @@ resource "aws_ecs_task_definition" "task_def" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu
   memory                   = var.fargate_memory
-  container_definitions    = data.template_file.myapp.rendered
+//  container_definitions    = data.template_file.myapp.rendered
+  container_definitions    = <<EOF
+  [
+    {
+      "name": "nginx-container",
+      "image": "${var.aws_account_no}.dkr.ecr.us-east-1.amazonaws.com/demo-ecr:latest",
+      "memory": 1024,
+      "cpu": 512,
+      "essential": true,
+      "entryPoint": ["/"],
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ]
+    }
+  ]
+  EOF
 }
 
 resource "aws_ecs_service" "test-service" {
@@ -39,7 +74,7 @@ resource "aws_ecs_service" "test-service" {
 
   load_balancer {
     target_group_arn = var.tg-arn
-    container_name   = "myapp"
+    container_name   = "nginx-container"
     container_port   = var.app_port
   }
 
