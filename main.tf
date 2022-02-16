@@ -25,4 +25,5 @@ module "ecs" {
   source = "./ecs"
   alb-sg = module.network.alb-sg-id
   private_subnets = module.vpc.private_subnet
+  ecs_task_execution_role_arn = module.iam.ecs_task_execution_role_arn
 }

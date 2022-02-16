@@ -1,8 +1,10 @@
 variable "ecs_task_execution_role" { }
 
-variable "private_subnet" { }
+variable "private_subnets" { }
 
 variable "alb-sg" { }
+
+variable "ecs_task_execution_role_arn" { }
 
 variable "app_image" {
   default     = "nginx:latest"
