@@ -36,6 +36,7 @@ resource "aws_lb_target_group" "tg" {
   name     = "ecs-target"
   port     = 80
   protocol = "HTTP"
+  target_type = "ip"
   vpc_id   = var.vpc_id
 
   # Alter the destination of the health check to be the login page.
