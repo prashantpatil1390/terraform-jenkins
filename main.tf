@@ -20,7 +20,10 @@ module "network" {
 module "ecr" {
   source = "./ecr"
 }
-
+/*
 module "ecs" {
   source = "./ecs"
+  alb-sg = module.network.alb-sg-id
+  private_subnets = module.vpc.private_subnet
 }
+*/
