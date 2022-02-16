@@ -14,7 +14,7 @@ data "template_file" "myapp" {
   }
 }
 
-resource "aws_ecs_task_definition" "task-def" {
+resource "aws_ecs_task_definition" "task_def" {
   family                   = "nginxapp-task"
   execution_role_arn       = var.ecs_task_execution_role_arn
   network_mode             = "awsvpc"
@@ -27,7 +27,7 @@ resource "aws_ecs_task_definition" "task-def" {
 resource "aws_ecs_service" "test-service" {
   name            = "nginxapp-service"
   cluster         = aws_ecs_cluster.web-cluster.id
-  task_definition = aws_ecs_task_definition.task-def.arn
+  task_definition = aws_ecs_task_definition.task_def.arn
   desired_count   = var.app_count
   launch_type     = "FARGATE"
 
