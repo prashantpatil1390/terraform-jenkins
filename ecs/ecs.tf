@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "task_def" {
       "memory": 1024,
       "cpu": 512,
       "essential": true,
-      "entryPoint": ["/"],
+//      "entryPoint": ["/"],
       "portMappings": [
         {
           "containerPort": 80,
