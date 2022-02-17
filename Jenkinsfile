@@ -8,7 +8,7 @@ pipeline {
     stage('S3- Create Backent Bucket'){
       steps{
         script{
-          createBackendS3Bucket('terraform-state-prash')
+          createBackendS3Bucket('terraform-state-prashant')
         }
       }
     }
