@@ -7,7 +7,6 @@ resource "aws_ecs_cluster" "web-cluster" {
 
   configuration {
     execute_command_configuration {
-//      kms_key_id = aws_kms_key.example.arn
       logging    = "OVERRIDE"
 
       log_configuration {
@@ -17,19 +16,6 @@ resource "aws_ecs_cluster" "web-cluster" {
     }
   }
 }
-/*
-data "template_file" "myapp" {
-  template = file("./ecs/templates/image/image.json")
-
-  vars = {
-    app_image      = var.app_image
-    app_port       = var.app_port
-    fargate_cpu    = var.fargate_cpu
-    fargate_memory = var.fargate_memory
-    aws_region     = var.aws_region
-  }
-}
-*/
 
 resource "aws_ecs_task_definition" "task_def" {
   family                   = "nginxapp-task"
@@ -38,7 +24,6 @@ resource "aws_ecs_task_definition" "task_def" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu
   memory                   = var.fargate_memory
-//  container_definitions    = data.template_file.myapp.rendered
   container_definitions    = <<EOF
   [
     {
