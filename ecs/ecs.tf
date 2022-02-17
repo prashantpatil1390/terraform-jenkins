@@ -29,8 +29,8 @@ resource "aws_ecs_task_definition" "task_def" {
     {
       "name": "nginx-container",
       "image": "${var.aws_account_no}.dkr.ecr.us-east-1.amazonaws.com/demo-ecr:latest",
-//      "memory": var.fargate_memory,
-//      "cpu": var.fargate_cpu,
+      "memory": var.fargate_memory,
+      "cpu": var.fargate_cpu,
       "essential": true,
       "entryPoint": ["/"],
       "portMappings": [
