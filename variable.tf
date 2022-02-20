@@ -4,7 +4,7 @@ variable "region" {
 }
 /*
 variable "stateBucketName" {
-  default = "terraform-state-prash"
+  default = "terraform-state-prashant"
 }
 variable "stateBucketRegion" {
   description = "S3 Bucket Region"
