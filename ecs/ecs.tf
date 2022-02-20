@@ -43,7 +43,7 @@ resource "aws_ecs_task_definition" "task_def" {
   EOF
 }
 
-resource "aws_ecs_service" "test-service" {
+resource "aws_ecs_service" "ecs_service" {
   name            = "nginxapp-service"
   cluster         = aws_ecs_cluster.web-cluster.id
   task_definition = aws_ecs_task_definition.task_def.arn
@@ -65,4 +65,45 @@ resource "aws_ecs_service" "test-service" {
 //  depends_on = [aws_alb_listener.testapp, aws_iam_role_policy_attachment.ecs_task_execution_role]
 //  depends_on = [module.alb.aws_lb_listener.front_end, module.iam.aws_iam_role.ecs_task_execution_role]
   depends_on = [aws_ecs_task_definition.task_def]
+}
+
+
+resource "aws_appautoscaling_target" "auto_scale_target" {
+  max_capacity = 5
+  min_capacity = 1
+  resource_id = "service/${aws_ecs_cluster.web-cluster.name}/${aws_ecs_service.ecs_service.name}"
+  scalable_dimension = "ecs:service:DesiredCount"
+  service_namespace = "ecs"
+}
+
+resource "aws_appautoscaling_policy" "memory_check" {
+  name               = "memory_check"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.auto_scale_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.auto_scale_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.auto_scale_target.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageMemoryUtilization"
+    }
+
+    target_value       = 80
+  }
+}
+
+resource "aws_appautoscaling_policy" "cpu_check" {
+  name = "cpu_check"
+  policy_type = "TargetTrackingScaling"
+  resource_id = aws_appautoscaling_target.auto_scale_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.auto_scale_target.scalable_dimension
+  service_namespace = aws_appautoscaling_target.auto_scale_target.service_namespace
+
+  target_tracking_scaling_policy_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ECSServiceAverageCPUUtilization"
+    }
+
+    target_value = 60
+  }
 }
