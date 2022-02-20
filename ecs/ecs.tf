@@ -49,6 +49,7 @@ resource "aws_ecs_service" "ecs_service" {
   task_definition = aws_ecs_task_definition.task_def.arn
   desired_count   = var.app_count
   launch_type     = "FARGATE"
+  force_new_deployment = "${var.aws_account_no}.dkr.ecr.us-east-1.amazonaws.com/demo-ecr:latest"
 
   network_configuration {
     security_groups  = [var.alb-sg]
