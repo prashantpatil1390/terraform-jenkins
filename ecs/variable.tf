@@ -1,5 +1,5 @@
 variable "aws_account_no"{
-  default = "049718899517"
+  default = "939600059814"
 }
 
 variable "ecs_task_execution_role" {

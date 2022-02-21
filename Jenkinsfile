@@ -1,8 +1,8 @@
 pipeline {
   agent any
-  environment {
-    PATH = "${PATH}:${getTerraformPath()}"
-  }
+//  environment {
+//    PATH = "${PATH}:${getTerraformPath()}"
+//  }
 
   stages{
     stage('S3- Create Backent Bucket'){
@@ -25,10 +25,10 @@ pipeline {
   }
 }
 
-def getTerraformPath(){
-  def tfHome = tool name: 'Terraform-1.1.5', type: 'terraform'
-  return tfHome
-}
+//def getTerraformPath(){
+//  def tfHome = tool name: 'Terraform-1.1.5', type: 'terraform'
+//  return tfHome
+//}
 
 def createBackendS3Bucket(bucketName) {
   sh returnStatus:true, script: "aws s3api create-bucket --bucket ${bucketName} --region us-east-1";
