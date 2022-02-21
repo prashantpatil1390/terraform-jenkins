@@ -5,10 +5,10 @@ pipeline {
 //  }
 
   stages{
-    stage('S3- Create Backent Bucket'){
+    stage('S3- Create Backend Bucket'){
       steps{
         script{
-          createBackendS3Bucket('terraform-state-prashant')
+          createBackendS3Bucket('terraform-state-prash')
         }
       }
     }
